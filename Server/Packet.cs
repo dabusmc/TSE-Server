@@ -7,6 +7,16 @@ using System.Threading.Tasks;
 
 namespace Server
 {
+    public enum ServerPackets
+    {
+        Welcome = 1
+    }
+
+    public enum ClientPackets
+    {
+        WelcomeReceived = 1
+    }
+
     class Packet : IDisposable
     {
         private byte[] m_Readable;
@@ -52,10 +62,9 @@ namespace Server
 
         public byte[] Read(int length)
         {
-            if (m_Buffer.Count > m_ReadPos && m_Buffer.Count > m_ReadPos + length)
+            if (m_Buffer.Count > m_ReadPos)
             {
-                byte[] values = new byte[length];
-                Array.Copy(m_Readable, m_ReadPos, values, 0, length);
+                byte[] values = m_Buffer.GetRange(m_ReadPos, length).ToArray();
                 m_ReadPos += length;
                 return values;
             }
@@ -225,6 +234,20 @@ namespace Server
         public int LengthLeft()
         {
             return Length() - m_ReadPos;
+        }
+
+        public void Reset(bool shouldReset = true)
+        {
+            if(shouldReset)
+            {
+                m_Buffer.Clear();
+                m_Readable = null;
+                m_ReadPos = 0;
+            }
+            else
+            {
+                m_ReadPos -= 4;
+            }
         }
         #endregion
 
