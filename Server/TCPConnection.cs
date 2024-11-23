@@ -22,6 +22,10 @@ namespace Server
             m_ID = id;
         }
 
+        /// <summary>
+        /// Connects a TcpClient instance to this TCPConnection, thereby linking the two
+        /// </summary>
+        /// <param name="socket">The TcpClient instance to connect</param>
         public void Connect(TcpClient socket)
         {
             Socket = socket;
@@ -37,6 +41,10 @@ namespace Server
             ServerSend.Welcome(m_ID, "Welcome to the game!");
         }
 
+        /// <summary>
+        /// Send a packet to the client this connection refers to
+        /// </summary>
+        /// <param name="packet">The packet to send</param>
         public void SendData(Packet packet)
         {
             try
@@ -52,6 +60,10 @@ namespace Server
             }
         }
 
+        /// <summary>
+        /// Called by NetworkStream when data is received from a client
+        /// </summary>
+        /// <param name="result">Unused</param>
         private void ReceiveCallback(IAsyncResult result)
         {
             try
@@ -77,6 +89,11 @@ namespace Server
             }
         }
 
+        /// <summary>
+        /// Reads and performs actions on the incoming packet
+        /// </summary>
+        /// <param name="data">The byte data of the incoming packet</param>
+        /// <returns>True if the packet has been read to completion, otherwise false</returns>
         private bool HandleData(byte[] data)
         {
             int packetLength = 0;

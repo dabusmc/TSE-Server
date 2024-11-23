@@ -8,6 +8,9 @@ namespace Server
 {
     class Logic
     {
+        /// <summary>
+        /// Updates the internal logic of the server
+        /// </summary>
         public static void Update()
         {
             ThreadManager.UpdateMain();

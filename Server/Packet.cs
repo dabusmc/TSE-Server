@@ -46,6 +46,11 @@ namespace Server
         }
 
         #region Read
+        /// <summary>
+        /// Read a single byte from this packet
+        /// </summary>
+        /// <returns>The read byte</returns>
+        /// <exception cref="Exception">Thrown if byte can't be read due to reaching the end of the packet</exception>
         public byte Read()
         {
             if (m_Buffer.Count > m_ReadPos)
@@ -60,6 +65,12 @@ namespace Server
             }
         }
 
+        /// <summary>
+        /// Read a byte array from this packet
+        /// </summary>
+        /// <param name="length">The number of bytes to read</param>
+        /// <returns>The read byte array</returns>
+        /// <exception cref="Exception">Thrown if bytes can't be read due to reaching the end of the packet</exception>
         public byte[] Read(int length)
         {
             if (m_Buffer.Count > m_ReadPos)
@@ -74,6 +85,11 @@ namespace Server
             }
         }
 
+        /// <summary>
+        /// Read an int from this packet
+        /// </summary>
+        /// <returns>The read int</returns>
+        /// <exception cref="Exception">Thrown if int can't be read due to reaching the end of the packet</exception>
         public int ReadInt()
         {
             if (m_Buffer.Count > m_ReadPos)
@@ -88,6 +104,11 @@ namespace Server
             }
         }
 
+        /// <summary>
+        /// Read a float from this packet
+        /// </summary>
+        /// <returns>The read float</returns>
+        /// <exception cref="Exception">Thrown if float can't be read due to reaching the end of the packet</exception>
         public float ReadFloat()
         {
             if (m_Buffer.Count > m_ReadPos)
@@ -102,6 +123,11 @@ namespace Server
             }
         }
 
+        /// <summary>
+        /// Read a long from this packet
+        /// </summary>
+        /// <returns>The read long</returns>
+        /// <exception cref="Exception">Thrown if long can't be read due to reaching the end of the packet</exception>
         public long ReadLong()
         {
             if (m_Buffer.Count > m_ReadPos)
@@ -116,6 +142,11 @@ namespace Server
             }
         }
 
+        /// <summary>
+        /// Read a short from this packet
+        /// </summary>
+        /// <returns>The read short</returns>
+        /// <exception cref="Exception">Thrown if short can't be read due to reaching the end of the packet</exception>
         public short ReadShort()
         {
             if (m_Buffer.Count > m_ReadPos)
@@ -130,6 +161,11 @@ namespace Server
             }
         }
 
+        /// <summary>
+        /// Read a bool from this packet
+        /// </summary>
+        /// <returns>The read bool</returns>
+        /// <exception cref="Exception">Thrown if bool can't be read due to reaching the end of the packet</exception>
         public bool ReadBool()
         {
             if (m_Buffer.Count > m_ReadPos)
@@ -144,6 +180,11 @@ namespace Server
             }
         }
 
+        /// <summary>
+        /// Read a string from this packet
+        /// </summary>
+        /// <returns>The read string</returns>
+        /// <exception cref="Exception">Thrown if string can't be read due to reaching the end of the packet</exception>
         public string ReadString()
         {
             try
@@ -161,41 +202,73 @@ namespace Server
         #endregion
 
         #region Write
+        /// <summary>
+        /// Write a byte into this packet
+        /// </summary>
+        /// <param name="data">The byte to write</param>
         public void Write(byte data)
         {
             m_Buffer.Add(data);
         }
 
+        /// <summary>
+        /// Write a byte array into this packet
+        /// </summary>
+        /// <param name="data">The byte array to write</param>
         public void Write(byte[] data)
         {
             m_Buffer.AddRange(data);
         }
 
+        /// <summary>
+        /// Write an int into this packet
+        /// </summary>
+        /// <param name="data">The int to write</param>
         public void WriteInt(int data)
         {
             m_Buffer.AddRange(BitConverter.GetBytes(data));
         }
 
+        /// <summary>
+        /// Write a float into this packet
+        /// </summary>
+        /// <param name="data">The float to write</param>
         public void WriteFloat(float data)
         {
             m_Buffer.AddRange(BitConverter.GetBytes(data));
         }
 
+        /// <summary>
+        /// Write a long into this packet
+        /// </summary>
+        /// <param name="data">The long to write</param>
         public void WriteLong(long data)
         {
             m_Buffer.AddRange(BitConverter.GetBytes(data));
         }
 
+        /// <summary>
+        /// Write a short into this packet
+        /// </summary>
+        /// <param name="data">The short to write</param>
         public void WriteShort(short data)
         {
             m_Buffer.AddRange(BitConverter.GetBytes(data));
         }
 
+        /// <summary>
+        /// Write a bool into this packet
+        /// </summary>
+        /// <param name="data">The bool to write</param>
         public void WriteBool(bool data)
         {
             m_Buffer.AddRange(BitConverter.GetBytes(data));
         }
 
+        /// <summary>
+        /// Write an ASCII string into this packet
+        /// </summary>
+        /// <param name="data">The string to write</param>
         public void WriteString(string data)
         {
             WriteInt(data.Length);
@@ -204,38 +277,65 @@ namespace Server
         #endregion
 
         #region Utility
+        /// <summary>
+        /// Set the byte data for this packet
+        /// </summary>
+        /// <param name="_data">The byte data to use</param>
         public void SetBytes(byte[] _data)
         {
             Write(_data);
             m_Readable = m_Buffer.ToArray();
         }
-
+        
+        /// <summary>
+        /// Insert the length of the byte data at the start of the packet
+        /// </summary>
         public void WriteLength()
         {
-            m_Buffer.InsertRange(0, BitConverter.GetBytes(m_Buffer.Count)); // Insert the buffer length at the start of the packet
+            m_Buffer.InsertRange(0, BitConverter.GetBytes(m_Buffer.Count));
         }
 
+        /// <summary>
+        /// Insert an int at the start of the packet
+        /// </summary>
+        /// <param name="val">The int to insert</param>
         public void InsertInt(int val)
         {
-            m_Buffer.InsertRange(0, BitConverter.GetBytes(val)); // Insert the int at the start of the packet
+            m_Buffer.InsertRange(0, BitConverter.GetBytes(val));
         }
 
+        /// <summary>
+        /// Convert the packet data to a byte array
+        /// </summary>
+        /// <returns>The byte array containing the packet data</returns>
         public byte[] ToArray()
         {
             m_Readable = m_Buffer.ToArray();
             return m_Readable;
         }
 
+        /// <summary>
+        /// Get the length of the packet data
+        /// </summary>
+        /// <returns>The number of bytes in the packet</returns>
         public int Length()
         {
             return m_Buffer.Count;
         }
 
+        /// <summary>
+        /// Get the length of the packet data that hasn't been read yet
+        /// </summary>
+        /// <returns>The number of remaining bytes in the packet</returns>
         public int LengthLeft()
         {
             return Length() - m_ReadPos;
         }
 
+        /// <summary>
+        /// Clear the data within the packet and reset it ready for re-use
+        /// </summary>
+        /// <param name="shouldReset">Whether or not the packet should be reset</param>
         public void Reset(bool shouldReset = true)
         {
             if(shouldReset)

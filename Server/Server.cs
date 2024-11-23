@@ -18,6 +18,11 @@ namespace Server
 
         private static TcpListener m_Listener;
 
+        /// <summary>
+        /// Initialise the server and start waiting for incoming client connections
+        /// </summary>
+        /// <param name="maxPlayers">The maximum number of players that the server will allow</param>
+        /// <param name="port">The port that the server should run on</param>
         public static void Start(int maxPlayers, int port)
         {
             MaxPlayers = maxPlayers;
@@ -33,6 +38,10 @@ namespace Server
             Console.WriteLine($"Server started on port {Port}");
         }
 
+        /// <summary>
+        /// Called by TcpListener when a TcpClient connection request comes in
+        /// </summary>
+        /// <param name="result">Unused</param>
         private static void TCPAttemptConnect(IAsyncResult result)
         {
             TcpClient client = m_Listener.EndAcceptTcpClient(result);
@@ -51,6 +60,9 @@ namespace Server
             Console.WriteLine($"{client.Client.RemoteEndPoint} failed to connect: Server full");
         }
 
+        /// <summary>
+        /// Initialises internal server data
+        /// </summary>
         private static void InitialiseServerData()
         {
             Clients = new Dictionary<int, Client>();

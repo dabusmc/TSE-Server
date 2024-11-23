@@ -8,6 +8,11 @@ namespace Server
 {
     class ServerHandle
     {
+        /// <summary>
+        /// Handles the incoming WelcomeReceived packet from client
+        /// </summary>
+        /// <param name="fromClient">The ID of the client that send this packet</param>
+        /// <param name="packet">The packet data itself</param>
         public static void WelcomeReceived(int fromClient, Packet packet)
         {
             int clientID = packet.ReadInt();
