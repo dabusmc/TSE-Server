@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,6 +45,37 @@ namespace Server
         {
             m_Buffer.AddRange(data);
         }
+
+        public void WriteInt(int data)
+        {
+            m_Buffer.AddRange(BitConverter.GetBytes(data));
+        }
+
+        public void WriteFloat(float data)
+        {
+            m_Buffer.AddRange(BitConverter.GetBytes(data));
+        }
+
+        public void WriteLong(long data)
+        {
+            m_Buffer.AddRange(BitConverter.GetBytes(data));
+        }
+
+        public void WriteShort(short data)
+        {
+            m_Buffer.AddRange(BitConverter.GetBytes(data));
+        }
+
+        public void WriteBool(bool data)
+        {
+            m_Buffer.AddRange(BitConverter.GetBytes(data));
+        }
+
+        public void WriteString(string data)
+        {
+            WriteInt(data.Length);
+            m_Buffer.AddRange(Encoding.ASCII.GetBytes(data)); // NOTE: This only allows the sending of ASCII characters
+        }
         #endregion
 
         #region Read
@@ -61,6 +93,21 @@ namespace Server
             }
         }
 
+        public byte[] Read(int length)
+        {
+            if(m_Buffer.Count > m_ReadPos && m_Buffer.Count > m_ReadPos + length)
+            {
+                byte[] values = new byte[length];
+                Array.Copy(m_Readable, m_ReadPos, values, 0, length);
+                m_ReadPos += length;
+                return values;
+            }
+            else
+            {
+                throw new Exception("Could not read the value of bytes");
+            }
+        }
+
         public int ReadInt()
         {
             if(m_Buffer.Count > m_ReadPos)
@@ -72,6 +119,77 @@ namespace Server
             else
             {
                 throw new Exception("Could not read the value of int");
+            }
+        }
+
+        public float ReadFloat()
+        {
+            if(m_Buffer.Count > m_ReadPos)
+            {
+                float value = BitConverter.ToSingle(m_Readable, m_ReadPos);
+                m_ReadPos += 4;
+                return value;
+            }
+            else
+            {
+                throw new Exception("Could not read the value of float");
+            }
+        }
+
+        public long ReadLong()
+        {
+            if(m_Buffer.Count > m_ReadPos)
+            {
+                long value = BitConverter.ToInt64(m_Readable, m_ReadPos);
+                m_ReadPos += 8;
+                return value;
+            }
+            else
+            {
+                throw new Exception("Could not read the value of long");
+            }
+        }
+
+        public short ReadShort()
+        {
+            if (m_Buffer.Count > m_ReadPos)
+            {
+                short value = BitConverter.ToInt16(m_Readable, m_ReadPos);
+                m_ReadPos += 2;
+                return value;
+            }
+            else
+            {
+                throw new Exception("Could not read the value of short");
+            }
+        }
+        
+        public bool ReadBool()
+        {
+            if (m_Buffer.Count > m_ReadPos)
+            {
+                bool value = BitConverter.ToBoolean(m_Readable, m_ReadPos);
+                m_ReadPos += 1;
+                return value;
+            }
+            else
+            {
+                throw new Exception("Could not read the value of bool");
+            }
+        }
+
+        public string ReadString()
+        {
+            try
+            {
+                int length = ReadInt();
+                string value = Encoding.ASCII.GetString(m_Readable, m_ReadPos, length);
+                m_ReadPos += length;
+                return value;
+            }
+            catch
+            {
+                throw new Exception("Could not read the value of string");
             }
         }
         #endregion
