@@ -50,7 +50,7 @@ namespace Server
         }
 
         /// <summary>
-        /// Sends the welcome packet to a client
+        /// Sends the Welcome packet to a client
         /// </summary>
         /// <param name="toClient">The client to send to</param>
         /// <param name="msg">The welcome message to send</param>
@@ -65,6 +65,11 @@ namespace Server
             }
         }
 
+        /// <summary>
+        /// Sends the ConnectedToLobby packet to a client
+        /// </summary>
+        /// <param name="toClient">The client to send to</param>
+        /// <param name="lobby">The Lobby that they have connected to</param>
         public static void ConnectedToLobby(int toClient, Lobby lobby)
         {
             using(Packet packet = new Packet((int)ServerPackets.ConnectedToLobby))

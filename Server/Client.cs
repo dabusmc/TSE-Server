@@ -21,6 +21,9 @@ namespace Server
             Data = new ClientData();
         }
 
+        /// <summary>
+        /// Disconnects the client from the server. Also automatically removes them from their lobby if they're in one
+        /// </summary>
         public void Disconnect()
         {
             int lobby = LobbyPool.FindLobbyWithClient(ID);

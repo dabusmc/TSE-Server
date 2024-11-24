@@ -135,6 +135,9 @@ namespace Server
             return packetLength <= 1;
         }
 
+        /// <summary>
+        /// Closes the TCP socket and cleans up the remaining data
+        /// </summary>
         public void Disconnect()
         {
             Socket.Close();

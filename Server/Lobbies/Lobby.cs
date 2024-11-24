@@ -23,16 +23,29 @@ namespace Server
             m_ConnectedClients = new List<int>();
         }
 
+        /// <summary>
+        /// Gets the ID of the Lobby
+        /// </summary>
+        /// <returns>The integer ID for this Lobby</returns>
         public int GetID()
         {
             return m_ID;
         }
 
+        /// <summary>
+        /// Checks if the Lobby has reached maximum capacity
+        /// </summary>
+        /// <returns>True if the Lobby is full, otherwise False</returns>
         public bool IsFull()
         {
             return m_ConnectedClients.Count >= Constants.MAX_PLAYERS_PER_LOBBY;
         }
 
+        /// <summary>
+        /// Connects a client to this Lobby
+        /// </summary>
+        /// <param name="clientID">The client to connect</param>
+        /// <returns>True if the client was connected successfully, otherwise false</returns>
         public bool ConnectClient(int clientID)
         {
             if (IsFull()) return false;
@@ -41,6 +54,10 @@ namespace Server
             return true;
         }
 
+        /// <summary>
+        /// Disconnects a client from this Lobby (if they are in this Lobby)
+        /// </summary>
+        /// <param name="clientID">The client to disconnect</param>
         public void DisconnectClient(int clientID)
         {
             if(m_ConnectedClients.Contains(clientID))
@@ -49,6 +66,11 @@ namespace Server
             }
         }
 
+        /// <summary>
+        /// Checks if a client is in this Lobby
+        /// </summary>
+        /// <param name="clientID">The client to check for</param>
+        /// <returns>True if the client is in the Lobby, otherwise False</returns>
         public bool ClientInLobby(int clientID)
         {
             return m_ConnectedClients.Contains(clientID);
