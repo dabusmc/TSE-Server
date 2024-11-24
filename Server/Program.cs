@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Server.Lobbies;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -22,6 +23,7 @@ namespace Server
             main.Start();
 
             Server.Start(50, 26950);
+            LobbyPool.Init(25);
         }
 
         private static void MainThread()

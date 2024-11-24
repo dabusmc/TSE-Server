@@ -64,5 +64,19 @@ namespace Server
                 SendTCPData(toClient, packet);
             }
         }
+
+        public static void ConnectedToLobby(int toClient, Lobby lobby)
+        {
+            using(Packet packet = new Packet((int)ServerPackets.ConnectedToLobby))
+            {
+                packet.WriteInt(lobby.GetID());
+                // TODO: Send client data about the other people in the lobby
+                packet.WriteInt(toClient);
+
+                SendTCPData(toClient, packet);
+
+                // TOOD: Send packet to other clients in lobby to tell them that this client has joined
+            }
+        }
     }
 }

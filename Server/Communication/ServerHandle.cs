@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Server.Lobbies;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,9 +24,33 @@ namespace Server
             if(fromClient != clientID)
             {
                 Console.WriteLine($"Player \"{username}\" (ID: {fromClient}) has assumed the wrong client ID ({clientID})!");
+                return;
             }
             
             // TODO: Send player into game
+        }
+
+        public static void FindAvailableLobby(int fromClient, Packet packet)
+        {
+            int clientID = packet.ReadInt();
+
+            if (fromClient != clientID)
+            {
+                Console.WriteLine($"Player {fromClient} has assumed the wrong client ID ({clientID})!");
+                return;
+            }
+
+            int id = LobbyPool.GetNextAvailableLobby();
+            if(id != -1)
+            {
+                LobbyPool.GetLobbyFromID(id).ConnectClient(fromClient);
+                ServerSend.ConnectedToLobby(fromClient, LobbyPool.GetLobbyFromID(id));
+                Console.WriteLine($"Player {fromClient} connected to lobby {id}");
+            }
+            else
+            {
+                // TODO: Send a packet to tell the user they couldn't connect to a lobby
+            }
         }
     }
 }
