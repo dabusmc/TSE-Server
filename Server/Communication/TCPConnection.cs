@@ -71,7 +71,7 @@ namespace Server
                 int byteLength = m_Stream.EndRead(result);
                 if (byteLength <= 0)
                 {
-                    // TODO: disconnect
+                    Server.Clients[m_ID].Disconnect();
                     return;
                 }
 
@@ -85,7 +85,7 @@ namespace Server
             {
                 Console.WriteLine($"Error receiving TCP data: {e}");
 
-                // TODO: disconnect
+                Server.Clients[m_ID].Disconnect();
             }
         }
 
@@ -133,6 +133,15 @@ namespace Server
             }
 
             return packetLength <= 1;
+        }
+
+        public void Disconnect()
+        {
+            Socket.Close();
+            m_Stream = null;
+            m_ReceivedData = null;
+            m_ReceiveBuffer = null;
+            Socket = null;
         }
     }
 }

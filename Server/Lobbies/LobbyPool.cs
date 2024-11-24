@@ -36,6 +36,19 @@ namespace Server.Lobbies
             return -1;
         }
 
+        public static int FindLobbyWithClient(int clientID)
+        {
+            for(int i = 0; i < m_Pool.Count; i++)
+            {
+                if (m_Pool[i].ClientInLobby(clientID))
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
         public static Lobby GetLobbyFromID(int id)
         {
             return m_Pool[id];

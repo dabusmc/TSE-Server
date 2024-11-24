@@ -19,14 +19,16 @@ namespace Server
             int clientID = packet.ReadInt();
             string username = packet.ReadString();
 
-            Console.WriteLine($"{Server.Clients[fromClient].TCP.Socket.Client.RemoteEndPoint} connected successfully and is now player {fromClient}");
-
-            if(fromClient != clientID)
+            if (fromClient != clientID)
             {
                 Console.WriteLine($"Player \"{username}\" (ID: {fromClient}) has assumed the wrong client ID ({clientID})!");
                 return;
             }
-            
+
+            Console.WriteLine($"{Server.Clients[fromClient].TCP.Socket.Client.RemoteEndPoint} connected successfully and is now player {fromClient}");
+
+            Server.Clients[fromClient].Data.Username = username;
+
             // TODO: Send player into game
         }
 
@@ -36,7 +38,7 @@ namespace Server
 
             if (fromClient != clientID)
             {
-                Console.WriteLine($"Player {fromClient} has assumed the wrong client ID ({clientID})!");
+                Console.WriteLine($"Player \"{Server.Clients[fromClient].Data.Username}\" (ID: {fromClient}) has assumed the wrong client ID ({clientID})!");
                 return;
             }
 
@@ -45,7 +47,7 @@ namespace Server
             {
                 LobbyPool.GetLobbyFromID(id).ConnectClient(fromClient);
                 ServerSend.ConnectedToLobby(fromClient, LobbyPool.GetLobbyFromID(id));
-                Console.WriteLine($"Player {fromClient} connected to lobby {id}");
+                Console.WriteLine($"Player \"{Server.Clients[fromClient].Data.Username}\" (ID: {fromClient}) connected to lobby {id}");
             }
             else
             {

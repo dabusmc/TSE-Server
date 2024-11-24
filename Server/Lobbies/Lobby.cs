@@ -40,5 +40,18 @@ namespace Server
             m_ConnectedClients.Add(clientID);
             return true;
         }
+
+        public void DisconnectClient(int clientID)
+        {
+            if(m_ConnectedClients.Contains(clientID))
+            {
+                m_ConnectedClients.Remove(clientID);
+            }
+        }
+
+        public bool ClientInLobby(int clientID)
+        {
+            return m_ConnectedClients.Contains(clientID);
+        }
     }
 }
