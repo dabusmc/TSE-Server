@@ -11,7 +11,8 @@ namespace Server
     {
         Welcome = 1,
         ConnectedToLobby = 2,
-        PlayerJoinedLobby = 3
+        PlayerJoinedLobby = 3,
+        LobbyConnectionFailed = 4
     }
 
     public enum ClientPackets

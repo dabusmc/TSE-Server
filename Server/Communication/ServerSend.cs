@@ -112,5 +112,15 @@ namespace Server
                 SendTCPDataToAllExcept(clientWhoJoined, packet);
             }
         }
+
+        public static void LobbyConnectionFailed(int toClient, string reason)
+        {
+            using (Packet packet = new Packet((int)ServerPackets.LobbyConnectionFailed))
+            {
+                packet.WriteString(reason);
+
+                SendTCPData(toClient, packet);
+            }
+        }
     }
 }

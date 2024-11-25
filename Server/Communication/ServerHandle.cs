@@ -56,7 +56,7 @@ namespace Server
             }
             else
             {
-                // TODO: Send a packet to tell the user they couldn't connect to a lobby
+                ServerSend.LobbyConnectionFailed(fromClient, "No available lobbies!");
             }
         }
 
@@ -81,12 +81,12 @@ namespace Server
                 }
                 else
                 {
-                    // TODO: Send a packet to tell the user they couldn't connect to a lobby
+                    ServerSend.LobbyConnectionFailed(fromClient, $"Lobby {id} is full");
                 }
             }
             else
             {
-                // TODO: Send a packet to tell the user they couldn't connect to a lobby
+                ServerSend.LobbyConnectionFailed(fromClient, $"Lobby {id} could not be found");
             }
         }
     }
