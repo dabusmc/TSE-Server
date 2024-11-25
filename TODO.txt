@@ -5,6 +5,6 @@ Big Goals
 [ ] Finish Lobby System
 	[x] Tell players who join a lobby who else is in that lobby
 	[x] Inform other players in a lobby that someone has joined
-	[ ] Allow players to connect to a certain lobby
+	[x] Allow players to connect to a certain lobby
 	[ ] Report to client why connections don't work (no available lobbies, lobby doesn't exist, etc.)
 [ ] Create basic Unity project for client

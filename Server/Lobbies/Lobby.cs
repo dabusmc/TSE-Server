@@ -76,11 +76,20 @@ namespace Server
             return m_ConnectedClients.Contains(clientID);
         }
 
+        /// <summary>
+        /// Gets the number of connected clients to this Lobby
+        /// </summary>
+        /// <returns>The number of connected clients</returns>
         public int Count()
         {
             return m_ConnectedClients.Count;
         }
 
+        /// <summary>
+        /// Gets a client's ID from the index into the m_ConnectedClients list
+        /// </summary>
+        /// <param name="index">The index into the list</param>
+        /// <returns>The client's ID if the index is valid, otherwise -1</returns>
         public int GetClientInLobby(int index)
         {
             if(index >= 0 && index < m_ConnectedClients.Count)

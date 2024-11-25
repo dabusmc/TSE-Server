@@ -95,6 +95,11 @@ namespace Server
             }
         }
 
+        /// <summary>
+        /// Sends the PlayerJoinedLobby packet to everyone else in a lobby
+        /// </summary>
+        /// <param name="clientWhoJoined">The ID of the client who joined</param>
+        /// <param name="lobby">The Lobby that they joined</param>
         public static void PlayerJoinedLobby(int clientWhoJoined, Lobby lobby)
         {
             using(Packet packet = new Packet((int)ServerPackets.PlayerJoinedLobby))

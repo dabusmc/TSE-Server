@@ -17,7 +17,8 @@ namespace Server
     public enum ClientPackets
     {
         WelcomeReceived = 1,
-        FindAvailableLobby = 2
+        FindAvailableLobby = 2,
+        FindCertainLobby = 3
     }
 
     class Packet : IDisposable

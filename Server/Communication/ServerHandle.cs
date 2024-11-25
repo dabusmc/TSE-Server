@@ -59,5 +59,35 @@ namespace Server
                 // TODO: Send a packet to tell the user they couldn't connect to a lobby
             }
         }
+
+        public static void FindCertainLobby(int fromClient, Packet packet)
+        {
+            int clientID = packet.ReadInt();
+
+            if (fromClient != clientID)
+            {
+                Console.WriteLine($"\"{Server.Clients[fromClient].Data.Username}\" (ID: {fromClient}) has assumed the wrong client ID ({clientID})!");
+                return;
+            }
+
+            int id = packet.ReadInt();
+            if(LobbyPool.GetLobbyFromID(id) != null)
+            {
+                if (!LobbyPool.GetLobbyFromID(id).IsFull())
+                {
+                    LobbyPool.GetLobbyFromID(id).ConnectClient(fromClient);
+                    ServerSend.ConnectedToLobby(fromClient, LobbyPool.GetLobbyFromID(id));
+                    Console.WriteLine($"\"{Server.Clients[fromClient].Data.Username}\" (ID: {fromClient}) connected to lobby {id}");
+                }
+                else
+                {
+                    // TODO: Send a packet to tell the user they couldn't connect to a lobby
+                }
+            }
+            else
+            {
+                // TODO: Send a packet to tell the user they couldn't connect to a lobby
+            }
+        }
     }
 }

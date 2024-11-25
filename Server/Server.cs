@@ -74,7 +74,8 @@ namespace Server
             PacketHandlers = new Dictionary<int, PacketHandler>()
             {
                 { (int)ClientPackets.WelcomeReceived, ServerHandle.WelcomeReceived },
-                { (int)ClientPackets.FindAvailableLobby, ServerHandle.FindAvailableLobby }
+                { (int)ClientPackets.FindAvailableLobby, ServerHandle.FindAvailableLobby },
+                { (int)ClientPackets.FindCertainLobby, ServerHandle.FindCertainLobby },
             };
             Console.WriteLine("Initialised Server");
         }
