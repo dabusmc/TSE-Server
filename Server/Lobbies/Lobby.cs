@@ -75,5 +75,20 @@ namespace Server
         {
             return m_ConnectedClients.Contains(clientID);
         }
+
+        public int Count()
+        {
+            return m_ConnectedClients.Count;
+        }
+
+        public int GetClientInLobby(int index)
+        {
+            if(index >= 0 && index < m_ConnectedClients.Count)
+            {
+                return m_ConnectedClients[index];
+            }
+
+            return -1;
+        }
     }
 }

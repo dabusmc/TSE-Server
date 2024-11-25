@@ -28,7 +28,7 @@ namespace Server
             packet.WriteLength();
             for (int i = 1; i <= Server.MaxPlayers; i++)
             {
-                SendTCPData(i, packet);
+                Server.Clients[i].TCP.SendData(packet);
             }
         }
 
@@ -44,7 +44,7 @@ namespace Server
             {
                 if(i != exceptClient)
                 {
-                    SendTCPData(i, packet);
+                    Server.Clients[i].TCP.SendData(packet);
                 }
             }
         }
@@ -75,12 +75,36 @@ namespace Server
             using(Packet packet = new Packet((int)ServerPackets.ConnectedToLobby))
             {
                 packet.WriteInt(lobby.GetID());
-                // TODO: Send client data about the other people in the lobby
                 packet.WriteInt(toClient);
+
+                packet.WriteInt(lobby.Count() - 1);
+                for(int i = 0; i < lobby.Count(); i++)
+                {
+                    int clientID = lobby.GetClientInLobby(i);
+
+                    if (clientID == toClient)
+                        continue;
+
+                    packet.WriteInt(clientID);
+                    packet.WriteString(Server.Clients[clientID].Data.Username);
+                }
 
                 SendTCPData(toClient, packet);
 
-                // TOOD: Send packet to other clients in lobby to tell them that this client has joined
+                PlayerJoinedLobby(toClient, lobby);
+            }
+        }
+
+        public static void PlayerJoinedLobby(int clientWhoJoined, Lobby lobby)
+        {
+            using(Packet packet = new Packet((int)ServerPackets.PlayerJoinedLobby))
+            {
+                packet.WriteInt(lobby.GetID());
+
+                packet.WriteInt(clientWhoJoined);
+                packet.WriteString(Server.Clients[clientWhoJoined].Data.Username);
+
+                SendTCPDataToAllExcept(clientWhoJoined, packet);
             }
         }
     }

@@ -10,7 +10,8 @@ namespace Server
     public enum ServerPackets
     {
         Welcome = 1,
-        ConnectedToLobby = 2
+        ConnectedToLobby = 2,
+        PlayerJoinedLobby = 3
     }
 
     public enum ClientPackets
@@ -36,7 +37,7 @@ namespace Server
             m_Buffer = new List<byte>();
             m_ReadPos = 0;
 
-            InsertInt(id);
+            WriteInt(id);
         }
 
         public Packet(byte[] data)

@@ -1,0 +1,10 @@
+Big Goals
+
+[ ] Implement UDP connections and communication
+[ ] Add the concept of a "Player" which will be connected to a single client and can handle all of their in-game logic
+[ ] Finish Lobby System
+	[x] Tell players who join a lobby who else is in that lobby
+	[x] Inform other players in a lobby that someone has joined
+	[ ] Allow players to connect to a certain lobby
+	[ ] Report to client why connections don't work (no available lobbies, lobby doesn't exist, etc.)
+[ ] Create basic Unity project for client
