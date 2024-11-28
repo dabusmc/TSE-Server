@@ -76,6 +76,7 @@ namespace Server
                 { (int)ClientPackets.WelcomeReceived, ServerHandle.WelcomeReceived },
                 { (int)ClientPackets.FindAvailableLobby, ServerHandle.FindAvailableLobby },
                 { (int)ClientPackets.FindCertainLobby, ServerHandle.FindCertainLobby },
+                { (int)ClientPackets.ListLobbies, ServerHandle.ListLobbies },
             };
             Console.WriteLine("Initialised Server");
         }

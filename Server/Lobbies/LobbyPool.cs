@@ -8,7 +8,9 @@ namespace Server.Lobbies
 {
     class LobbyPool
     {
-        private static Dictionary<int, Lobby> m_Pool;
+        public static int LobbyCount = 0;
+        public static int MaxLobbiesPerPage = 10;
+        private static Dictionary<int, Lobby> s_Pool;
 
         /// <summary>
         /// Initialises the LobbyPool
@@ -16,14 +18,16 @@ namespace Server.Lobbies
         /// <param name="poolSize">The number of Lobbies to keep in the pool</param>
         public static void Init(int poolSize)
         {
-            m_Pool = new Dictionary<int, Lobby>();
+            s_Pool = new Dictionary<int, Lobby>();
 
             for(int i = 0; i < poolSize; i++)
             {
-                Lobby l = new Lobby(i);
+                Lobby l = new Lobby();
                 int id = l.GetID();
 
-                m_Pool.Add(id, l);
+                s_Pool.Add(id, l);
+
+                LobbyCount += 1;
             }
         }
 
@@ -33,11 +37,11 @@ namespace Server.Lobbies
         /// <returns>The ID of the next available Lobby. If none are available: -1</returns>
         public static int GetNextAvailableLobby()
         {
-            for(int i = 0; i < m_Pool.Count; i++)
+            foreach (int key in s_Pool.Keys)
             {
-                if (!m_Pool[i].IsFull())
+                if (!s_Pool[key].IsFull())
                 {
-                    return i;
+                    return key;
                 }
             }
 
@@ -51,11 +55,11 @@ namespace Server.Lobbies
         /// <returns>The ID of the Lobby that contains the client. If the client can't be found: -1</returns>
         public static int FindLobbyWithClient(int clientID)
         {
-            for(int i = 0; i < m_Pool.Count; i++)
+            foreach(int key in s_Pool.Keys)
             {
-                if (m_Pool[i].ClientInLobby(clientID))
+                if (s_Pool[key].GetClientInLobby(clientID) != -1)
                 {
-                    return i;
+                    return key;
                 }
             }
 
@@ -69,8 +73,8 @@ namespace Server.Lobbies
         /// <returns>The Lobby object if the ID is valid, otherwise null</returns>
         public static Lobby GetLobbyFromID(int id)
         {
-            if(m_Pool.ContainsKey(id))
-                return m_Pool[id];
+            if(s_Pool.ContainsKey(id))
+                return s_Pool[id];
             
             return null;
         }

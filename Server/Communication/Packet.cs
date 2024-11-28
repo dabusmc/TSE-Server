@@ -12,14 +12,16 @@ namespace Server
         Welcome = 1,
         ConnectedToLobby = 2,
         PlayerJoinedLobby = 3,
-        LobbyConnectionFailed = 4
+        LobbyConnectionFailed = 4,
+        ListedLobbies = 5
     }
 
     public enum ClientPackets
     {
         WelcomeReceived = 1,
         FindAvailableLobby = 2,
-        FindCertainLobby = 3
+        FindCertainLobby = 3,
+        ListLobbies = 4
     }
 
     class Packet : IDisposable

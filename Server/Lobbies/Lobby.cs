@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Server.Lobbies;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace Server
 
         public Lobby()
         {
-            // TODO: Generate ID
+            m_ID = LobbyPool.LobbyCount;
             m_ConnectedClients = new List<int>();
         }
 
@@ -26,7 +27,7 @@ namespace Server
         /// <summary>
         /// Gets the ID of the Lobby
         /// </summary>
-        /// <returns>The integer ID for this Lobby</returns>
+        /// <returns>The int ID for this Lobby</returns>
         public int GetID()
         {
             return m_ID;

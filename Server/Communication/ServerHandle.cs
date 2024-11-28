@@ -60,6 +60,11 @@ namespace Server
             }
         }
 
+        /// <summary>
+        /// Handles the incoming FindCertainLobby packet
+        /// </summary>
+        /// <param name="fromClient">The ID of the client that sent the packet</param>
+        /// <param name="packet">The packet data itself</param>
         public static void FindCertainLobby(int fromClient, Packet packet)
         {
             int clientID = packet.ReadInt();
@@ -88,6 +93,21 @@ namespace Server
             {
                 ServerSend.LobbyConnectionFailed(fromClient, $"Lobby {id} could not be found");
             }
+        }
+
+        public static void ListLobbies(int fromClient, Packet packet)
+        {
+            int clientID = packet.ReadInt();
+
+            if (fromClient != clientID)
+            {
+                Console.WriteLine($"\"{Server.Clients[fromClient].Data.Username}\" (ID: {fromClient}) has assumed the wrong client ID ({clientID})!");
+                return;
+            }
+
+            int page = packet.ReadInt();
+
+            ServerSend.ListedLobbies(fromClient, page);
         }
     }
 }
