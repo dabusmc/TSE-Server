@@ -9,19 +9,12 @@ namespace Server
 {
     public enum ServerPackets
     {
-        Welcome = 1,
-        ConnectedToLobby = 2,
-        PlayerJoinedLobby = 3,
-        LobbyConnectionFailed = 4,
-        ListedLobbies = 5
+        Welcome = 1
     }
 
     public enum ClientPackets
     {
-        WelcomeReceived = 1,
-        FindAvailableLobby = 2,
-        FindCertainLobby = 3,
-        ListLobbies = 4
+        WelcomeReceived = 1
     }
 
     class Packet : IDisposable

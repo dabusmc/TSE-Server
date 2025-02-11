@@ -46,8 +46,17 @@
     <Compile Include="Client.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Data\ClientData.cs" />
-    <Compile Include="Lobbies\Lobby.cs" />
-    <Compile Include="Lobbies\LobbyPool.cs" />
+    <Compile Include="Game\Level.cs" />
+    <Compile Include="Game\LevelManager.cs" />
+    <Compile Include="Game\LevelObject.cs" />
+    <Compile Include="Game\LevelObjects\CollidableQuad.cs" />
+    <Compile Include="Game\Levels\TestLevel.cs" />
+    <Compile Include="Game\ObjectComponents.cs" />
+    <Compile Include="Game\World.cs" />
+    <Compile Include="Helper\Math\Vector.cs" />
+    <Compile Include="Helper\Math\Vector2.cs" />
+    <Compile Include="Helper\Math\Vector3.cs" />
+    <Compile Include="Helper\Math\Vector4.cs" />
     <Compile Include="Logic.cs" />
     <Compile Include="Communication\Packet.cs" />
     <Compile Include="Program.cs" />
@@ -61,5 +70,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,4 @@
-﻿using Server.Lobbies;
+﻿using Server.Game;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,16 +14,20 @@ namespace Server
     {
         private static bool s_Running = false;
 
+        public static World World { get; private set; }
+
         static void Main(string[] args)
         {
             Console.Title = "TSE Server";
             s_Running = true;
 
+            World = new World();
+            World.GenerateWorld();
+
             Thread main = new Thread(new ThreadStart(MainThread));
             main.Start();
 
             Server.Start(50, 26950);
-            LobbyPool.Init(25);
         }
 
         private static void MainThread()
