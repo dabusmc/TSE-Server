@@ -57,6 +57,7 @@
     <Compile Include="Helper\Math\Vector2.cs" />
     <Compile Include="Helper\Math\Vector3.cs" />
     <Compile Include="Helper\Math\Vector4.cs" />
+    <Compile Include="Helper\RND.cs" />
     <Compile Include="Logic.cs" />
     <Compile Include="Communication\Packet.cs" />
     <Compile Include="Program.cs" />

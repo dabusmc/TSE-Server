@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Server.Game;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -74,10 +75,16 @@ namespace Server
         {
             using(Packet packet = new Packet((int)ServerPackets.BeginLevel))
             {
-                packet.WriteInt(levelID);
-                packet.WriteInt(toClient);
+                Level lvl = LevelManager.GetLevel(levelID);
 
-                SendTCPData(toClient, packet);
+                if (lvl != null)
+                {
+                    packet.WriteInt(levelID);
+                    packet.WriteInt(lvl.GetObjects().Count);
+                    packet.WriteInt(toClient);
+
+                    SendTCPData(toClient, packet);
+                }
             }
         }
 
@@ -91,6 +98,46 @@ namespace Server
             using(Packet packet = new Packet((int)ServerPackets.EndLevel))
             {
                 packet.WriteInt(levelID);
+                packet.WriteInt(toClient);
+
+                SendTCPData(toClient, packet);
+            }
+        }
+
+        public static void SendLevelObject(int toClient, int objID)
+        {
+            using(Packet packet = new Packet((int)ServerPackets.SendLevelObject))
+            {
+                LevelObject obj = LevelManager.GetLevel(Program.World.GetCurrentLevel()).GetObjects()[objID];
+
+                packet.WriteInt(objID);
+                packet.WriteString(obj.Name);
+                packet.WriteVector3(obj.Position);
+                packet.WriteVector3(obj.Rotation);
+                packet.WriteVector3(obj.Scale);
+                packet.WriteInt(obj.GetObjectComponents().Count);
+                
+                for(int i = 0; i < obj.GetObjectComponents().Count; i++)
+                {
+                    ObjectComponent curr = obj.GetObjectComponents()[i];
+                    packet.WriteInt((int)curr.Type);
+
+                    switch(curr.Type)
+                    {
+                        case ObjectComponentType.SpriteRenderer:
+                            {
+                                SpriteRendererData data = (SpriteRendererData)curr.Data;
+
+                                packet.WriteInt((int)data.Sprite);
+                                packet.WriteVector4(data.Color);
+                                packet.WriteBool(data.FlipX);
+                                packet.WriteBool(data.FlipY);
+
+                                break;
+                            }
+                    }
+                }
+
                 packet.WriteInt(toClient);
 
                 SendTCPData(toClient, packet);

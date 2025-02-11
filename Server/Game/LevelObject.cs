@@ -9,17 +9,18 @@ namespace Server.Game
 {
     public class LevelObject
     {
-        private Vector3 m_Position;
-        private Vector3 m_Rotation;
-        private Vector3 m_Scale;
+        public Vector3 Position;
+        public Vector3 Rotation;
+        public Vector3 Scale;
+        public string Name;
 
         private List<ObjectComponent> m_Components;
 
         public LevelObject()
         {
-            m_Position = new Vector3();
-            m_Rotation = new Vector3();
-            m_Scale = new Vector3();
+            Position = new Vector3();
+            Rotation = new Vector3();
+            Scale = new Vector3(1.0f, 1.0f, 1.0f);
 
             m_Components = new List<ObjectComponent>();
         }
@@ -32,6 +33,24 @@ namespace Server.Game
         protected void AddComponent(ObjectComponentType type, ObjectComponentData data)
         {
             m_Components.Add(new ObjectComponent(type, data));
+        }
+
+        public List<ObjectComponent> GetObjectComponents()
+        {
+            return m_Components;
+        }
+
+        public int GetComponentOfType(ObjectComponentType type)
+        {
+            for(int i = 0; i < m_Components.Count; i++)
+            {
+                if (m_Components[i].Type == type)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
         }
     }
 }

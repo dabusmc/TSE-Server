@@ -12,14 +12,16 @@ namespace Server
     {
         Welcome = 1,
         BeginLevel = 2,
-        EndLevel = 3
+        EndLevel = 3,
+        SendLevelObject = 4
     }
 
     public enum ClientPackets
     {
         WelcomeReceived = 1,
         LevelReady = 2,
-        LevelReceived = 3
+        LevelReceived = 3,
+        LevelObjectReceived = 4
     }
 
     class Packet : IDisposable

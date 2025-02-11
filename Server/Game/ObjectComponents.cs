@@ -17,7 +17,7 @@ namespace Server.Game
     {
     }
 
-    public struct ObjectComponent
+    public class ObjectComponent
     {
         public ObjectComponentType Type;
         public ObjectComponentData Data;
@@ -48,11 +48,19 @@ namespace Server.Game
             FlipX = flipX;
             FlipY = flipY;
         }
+
+        public SpriteRendererData Copy()
+        {
+            return new SpriteRendererData(Sprite, Color, FlipX, FlipY);
+        }
     }
 
     public class BoxColliderData : ObjectComponentData
     {
-
+        public BoxColliderData Copy()
+        {
+            return new BoxColliderData();
+        }
     }
 
     public static class ObjectComponents

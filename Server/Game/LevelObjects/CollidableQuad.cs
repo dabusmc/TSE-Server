@@ -10,8 +10,11 @@ namespace Server.Game.LevelObjects
     {
         public CollidableQuad() : base()
         {
-            AddComponent(ObjectComponentType.SpriteRenderer, ObjectComponents.SpriteRendererDefault);
-            AddComponent(ObjectComponentType.BoxCollider, ObjectComponents.BoxColliderDefault);
+            AddComponent(ObjectComponentType.SpriteRenderer, ObjectComponents.SpriteRendererDefault.Copy());
+            AddComponent(ObjectComponentType.BoxCollider, ObjectComponents.BoxColliderDefault.Copy());
+
+            Name = "Quad";
+            Position.Y += 1.0f;
         }
     }
 }
