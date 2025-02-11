@@ -21,11 +21,28 @@ namespace Server.Helper.Math
             }
         }
 
-        protected float[] GetValues()
+        /// <summary>
+        /// Get the number of elements for the current Vector
+        /// </summary>
+        /// <returns>An integer value for the number of elements</returns>
+        public int Size()
+        {
+            return m_ElementCount;
+        }
+
+        /// <summary>
+        /// Get the stored values for each element
+        /// </summary>
+        /// <returns>A float array of size ElementCount containing the data for the Vector</returns>
+        public float[] GetValues()
         {
             return m_Values;
         }
 
+        /// <summary>
+        /// Updates the stored values for the Vector
+        /// </summary>
+        /// <param name="values">The float array to set the data to</param>
         protected void UpdateValues(float[] values)
         {
             if(values.Length != m_ElementCount)
@@ -36,6 +53,9 @@ namespace Server.Helper.Math
             m_Values = values;
         }
 
+        /// <summary>
+        /// Run when the values are changed directly
+        /// </summary>
         protected abstract void ValuesUpdated();
     }
 }

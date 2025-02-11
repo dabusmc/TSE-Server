@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Server.Helper.Math;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
@@ -9,12 +10,16 @@ namespace Server
 {
     public enum ServerPackets
     {
-        Welcome = 1
+        Welcome = 1,
+        BeginLevel = 2,
+        EndLevel = 3
     }
 
     public enum ClientPackets
     {
-        WelcomeReceived = 1
+        WelcomeReceived = 1,
+        LevelReady = 2,
+        LevelReceived = 3
     }
 
     class Packet : IDisposable
@@ -199,6 +204,42 @@ namespace Server
                 throw new Exception("Could not read the value of string");
             }
         }
+
+        /// <summary>
+        /// Read a Vector2 from this packet
+        /// </summary>
+        /// <returns>The read Vector2</returns>
+        public Vector2 ReadVector2()
+        {
+            float x = ReadFloat();
+            float y = ReadFloat();
+            return new Vector2(x, y);
+        }
+
+        /// <summary>
+        /// Read a Vector3 from this packet
+        /// </summary>
+        /// <returns>The read Vector2</returns>
+        public Vector3 ReadVector3()
+        {
+            float x = ReadFloat();
+            float y = ReadFloat();
+            float z = ReadFloat();
+            return new Vector3(x, y, z);
+        }
+
+        /// <summary>
+        /// Read a Vector4 from this packet
+        /// </summary>
+        /// <returns>The read Vector2</returns>
+        public Vector4 ReadVector4()
+        {
+            float x = ReadFloat();
+            float y = ReadFloat();
+            float z = ReadFloat();
+            float w = ReadFloat();
+            return new Vector4(x, y, z, w);
+        }
         #endregion
 
         #region Write
@@ -273,6 +314,39 @@ namespace Server
         {
             WriteInt(data.Length);
             m_Buffer.AddRange(Encoding.ASCII.GetBytes(data)); // NOTE: This only allows the sending of ASCII characters
+        }
+
+        /// <summary>
+        /// Write a Vector2 into this packet
+        /// </summary>
+        /// <param name="data"></param>
+        public void WriteVector2(Vector2 data)
+        {
+            WriteFloat(data.X);
+            WriteFloat(data.Y);
+        }
+
+        /// <summary>
+        /// Write a Vector3 into this packet
+        /// </summary>
+        /// <param name="data"></param>
+        public void WriteVector3(Vector3 data)
+        {
+            WriteFloat(data.X);
+            WriteFloat(data.Y);
+            WriteFloat(data.Z);
+        }
+
+        /// <summary>
+        /// Write a Vector4 into this packet
+        /// </summary>
+        /// <param name="data"></param>
+        public void WriteVector4(Vector4 data)
+        {
+            WriteFloat(data.X);
+            WriteFloat(data.Y);
+            WriteFloat(data.Z);
+            WriteFloat(data.W);
         }
         #endregion
 

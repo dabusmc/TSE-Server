@@ -24,6 +24,11 @@ namespace Server.Game
             m_Components = new List<ObjectComponent>();
         }
 
+        /// <summary>
+        /// Allows a child class to add an ObjectComponent
+        /// </summary>
+        /// <param name="type">The Type of ObjectComponent</param>
+        /// <param name="data">The relevant data for that ObjectComponent</param>
         protected void AddComponent(ObjectComponentType type, ObjectComponentData data)
         {
             m_Components.Add(new ObjectComponent(type, data));

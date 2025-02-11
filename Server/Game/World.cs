@@ -17,9 +17,22 @@ namespace Server.Game
             m_LevelIndex = 0;
         }
 
+        /// <summary>
+        /// Get the ID for the current level loaded
+        /// </summary>
+        /// <returns>The ID for the current loaded level</returns>
+        public int GetCurrentLevel()
+        {
+            return m_LevelIndex;
+        }
+
+        /// <summary>
+        /// Generates the world using the current Level
+        /// </summary>
         public void GenerateWorld()
         {
             Level lvl = LevelManager.GetLevel(m_LevelIndex);
+            lvl.Construct();
         }
     }
 }

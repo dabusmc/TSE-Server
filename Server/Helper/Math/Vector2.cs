@@ -19,6 +19,13 @@ namespace Server.Helper.Math
             
         }
 
+        public Vector2(float x, float y) : base(2)
+        {
+            _x = x;
+            _y = y;
+            ChangeValues();
+        }
+
         protected override void ValuesUpdated()
         {
             _x = GetValues()[0];

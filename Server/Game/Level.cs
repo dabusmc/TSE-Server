@@ -13,21 +13,34 @@ namespace Server.Game
         public Level()
         {
             m_Objects = new List<LevelObject>();
-
-            Construct();
         }
 
+        /// <summary>
+        /// Get all of the constructed LevelObjects
+        /// </summary>
+        /// <returns>A List of LevelObjects</returns>
         public List<LevelObject> GetObjects()
         {
             return m_Objects;
         }
 
+        /// <summary>
+        /// Allows a child class to add a LevelObject to the list of objects
+        /// </summary>
+        /// <param name="obj">The LevelObject to add</param>
         protected void AddLevelObject(LevelObject obj)
         {
             m_Objects.Add(obj);
         }
 
-        protected abstract void Construct();
+        /// <summary>
+        /// Constructs the Level
+        /// </summary>
+        public abstract void Construct();
+
+        /// <summary>
+        /// Updates the Level
+        /// </summary>
         public abstract void Update();
     }
 }

@@ -21,6 +21,14 @@ namespace Server.Helper.Math
 
         }
 
+        public Vector3(float x, float y, float z) : base(3)
+        {
+            _x = x;
+            _y = y;
+            _z = z;
+            ChangeValues();
+        }
+
         protected override void ValuesUpdated()
         {
             _x = GetValues()[0];

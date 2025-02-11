@@ -64,5 +64,37 @@ namespace Server
                 SendTCPData(toClient, packet);
             }
         }
+
+        /// <summary>
+        /// Sends the BeginLevel packet to a client
+        /// </summary>
+        /// <param name="toClient">The client to send to</param>
+        /// <param name="levelID">The level ID that is going to be sent</param>
+        public static void BeginLevel(int toClient, int levelID)
+        {
+            using(Packet packet = new Packet((int)ServerPackets.BeginLevel))
+            {
+                packet.WriteInt(levelID);
+                packet.WriteInt(toClient);
+
+                SendTCPData(toClient, packet);
+            }
+        }
+
+        /// <summary>
+        /// Sends the EndLevel packet to a client
+        /// </summary>
+        /// <param name="toClient">The client to send to</param>
+        /// <param name="levelID">The level ID that has been sent</param>
+        public static void EndLevel(int toClient, int levelID)
+        {
+            using(Packet packet = new Packet((int)ServerPackets.EndLevel))
+            {
+                packet.WriteInt(levelID);
+                packet.WriteInt(toClient);
+
+                SendTCPData(toClient, packet);
+            }
+        }
     }
 }

@@ -73,7 +73,9 @@ namespace Server
 
             PacketHandlers = new Dictionary<int, PacketHandler>()
             {
-                { (int)ClientPackets.WelcomeReceived, ServerHandle.WelcomeReceived }
+                { (int)ClientPackets.WelcomeReceived, ServerHandle.WelcomeReceived },
+                { (int)ClientPackets.LevelReady, ServerHandle.LevelReady },
+                { (int)ClientPackets.LevelReceived, ServerHandle.LevelReceived },
             };
             Console.WriteLine("Initialised Server");
         }

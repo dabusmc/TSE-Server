@@ -17,6 +17,11 @@ namespace Server.Game
             s_Levels.Add(new TestLevel());
         }
 
+        /// <summary>
+        /// Get a Level from its ID
+        /// </summary>
+        /// <param name="index">The ID of the Level</param>
+        /// <returns>The corresponding Level for the ID if the ID is valid, otherwise null</returns>
         public static Level GetLevel(int index)
         {
             if(index < 0 || index >= s_Levels.Count)
