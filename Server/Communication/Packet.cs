@@ -13,7 +13,9 @@ namespace Server
         Welcome = 1,
         BeginLevel = 2,
         EndLevel = 3,
-        SendLevelObject = 4
+        SendLevelObject = 4,
+        SendPlayer = 5,
+        PlayerJoined = 6,
     }
 
     public enum ClientPackets
@@ -21,7 +23,8 @@ namespace Server
         WelcomeReceived = 1,
         LevelReady = 2,
         LevelReceived = 3,
-        LevelObjectReceived = 4
+        LevelObjectReceived = 4,
+        PlayerReceived = 5,
     }
 
     class Packet : IDisposable

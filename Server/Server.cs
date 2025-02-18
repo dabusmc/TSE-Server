@@ -77,6 +77,7 @@ namespace Server
                 { (int)ClientPackets.LevelReady, ServerHandle.LevelReady },
                 { (int)ClientPackets.LevelReceived, ServerHandle.LevelReceived },
                 { (int)ClientPackets.LevelObjectReceived, ServerHandle.LevelObjectReceived },
+                { (int)ClientPackets.PlayerReceived, ServerHandle.PlayerReceived },
             };
             Console.WriteLine("Initialised Server");
         }

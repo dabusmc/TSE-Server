@@ -1,4 +1,9 @@
 [ ] Implement UDP connections and communication
 [ ] Add the concept of a "Player" which will be connected to a single client and can handle all of their in-game logic
-[ ] Remove Lobby system and have each game handled by an instance of the server rather than the server handling all games
 [x] Create basic Unity project for client
+[ ] Debug Mode for selecting levels
+[ ] System for exporting all static level objects from Unity and loading them into the Server
+[ ] Double check what happens when a player tries to join a full server
+[ ] Add support for changing Levels
+[ ] Kick client back to login screen when the server disconnects (and display message)
+[ ] Make first player in game "host" (they can do special things such as kicking players)

@@ -52,6 +52,7 @@
     <Compile Include="Game\LevelObjects\CollidableQuad.cs" />
     <Compile Include="Game\Levels\TestLevel.cs" />
     <Compile Include="Game\ObjectComponents.cs" />
+    <Compile Include="Game\Players\Player.cs" />
     <Compile Include="Game\World.cs" />
     <Compile Include="Helper\Math\Vector.cs" />
     <Compile Include="Helper\Math\Vector2.cs" />

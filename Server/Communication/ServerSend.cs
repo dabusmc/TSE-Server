@@ -1,4 +1,5 @@
 ﻿using Server.Game;
+using Server.Game.Players;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -141,6 +142,31 @@ namespace Server
                 packet.WriteInt(toClient);
 
                 SendTCPData(toClient, packet);
+            }
+        }
+
+        public static void SendPlayer(int toClient)
+        {
+            using(Packet packet = new Packet((int)ServerPackets.SendPlayer))
+            {
+                Player p = Program.World.GetPlayer(toClient);
+
+                packet.WriteVector3(p.Position);
+
+                packet.WriteInt(toClient);
+                SendTCPData(toClient, packet);
+            }
+        }
+
+        public static void PlayerJoined(int clientID)
+        {
+            using(Packet packet = new Packet((int)ServerPackets.PlayerJoined))
+            {
+                Player p = Program.World.GetPlayer(clientID);
+
+                packet.WriteVector3(p.Position);
+
+                SendTCPDataToAllExcept(clientID, packet);
             }
         }
     }

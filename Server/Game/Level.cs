@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Server.Helper.Math;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -42,5 +43,7 @@ namespace Server.Game
         /// Updates the Level
         /// </summary>
         public abstract void Update();
+
+        public abstract Vector3 GetNextSpawnPoint();
     }
 }

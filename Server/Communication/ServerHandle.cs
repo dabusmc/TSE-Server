@@ -29,6 +29,9 @@ namespace Server
             Console.WriteLine($"{Server.Clients[clientID].TCP.Socket.Client.RemoteEndPoint} connected successfully and is now player {clientID}");
 
             Server.Clients[clientID].Data.Username = username;
+            Program.World.NewPlayer(clientID);
+
+            ServerSend.PlayerJoined(clientID);
 
             Console.WriteLine($"Sending level to player {clientID}...");
             ServerSend.BeginLevel(clientID, Program.World.GetCurrentLevel());
@@ -96,12 +99,25 @@ namespace Server
 
             if (objID == LevelManager.GetLevel(Program.World.GetCurrentLevel()).GetObjects().Count - 1)
             {
-                ServerSend.EndLevel(clientID, Program.World.GetCurrentLevel());
+                ServerSend.SendPlayer(clientID);
             }
             else
             {
                 ServerSend.SendLevelObject(clientID, objID + 1);
             }
+        }
+
+        public static void PlayerReceived(int fromClient, Packet packet)
+        {
+            int clientID = packet.ReadInt();
+
+            if (fromClient != clientID)
+            {
+                Console.WriteLine($"\"{Server.Clients[clientID].Data.Username}\" (ID: {fromClient}) has assumed the wrong client ID ({clientID})!");
+                return;
+            }
+
+            ServerSend.EndLevel(clientID, Program.World.GetCurrentLevel());
         }
     }
 }

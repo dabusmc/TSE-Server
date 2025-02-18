@@ -11,32 +11,34 @@ namespace Server.Game.Levels
 {
     public class TestLevel : Level
     {
+        private bool m_FirstSpawnUsed;
+
         public override void Construct()
         {
-            int count = RND.Random.Next(10, 20);
+            m_FirstSpawnUsed = false;
 
-            for (int i = 0; i < count; i++)
-            {
-                CollidableQuad quad = new CollidableQuad();
-
-                Vector4 color = new Vector4(RND.RandomFloat(), RND.RandomFloat(), RND.RandomFloat(), 1.0f);
-
-                Vector3 position = new Vector3(RND.RandomFloat(-7.5f, 7.5f), RND.RandomFloat(-3.0f, 3.0f), 0.0f);
-
-                float scaleFactor = RND.RandomFloat(0.5f, 2.0f);
-                Vector3 scale = new Vector3(scaleFactor, scaleFactor, 0.0f);
-
-                int spriteRenderer = quad.GetComponentOfType(ObjectComponentType.SpriteRenderer);
-                ((SpriteRendererData)quad.GetObjectComponents()[spriteRenderer].Data).Color = color;
-                quad.Position = position;
-                quad.Scale = scale;
-
-                AddLevelObject(quad);
-            }
+            CollidableQuad ground = new CollidableQuad();
+            ground.Position = new Vector3(0.0f, -2.5f, 0.0f);
+            ground.Scale = new Vector3(10.0f, 0.4f, 1.0f);
+            AddLevelObject(ground);
         }
 
         public override void Update()
         {
+        }
+
+        public override Vector3 GetNextSpawnPoint()
+        {
+            if(!m_FirstSpawnUsed)
+            {
+                m_FirstSpawnUsed = true;
+                return new Vector3(-3.5f, -1.0f, 0.0f);
+            }
+            else
+            {
+                m_FirstSpawnUsed = false;
+                return new Vector3(3.5f, -1.0f, 0.0f);
+            }
         }
     }
 }
