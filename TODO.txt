@@ -1,5 +1,5 @@
 [ ] Implement UDP connections and communication
-[ ] Add the concept of a "Player" which will be connected to a single client and can handle all of their in-game logic
+[x] Add the concept of a "Player" which will be connected to a single client and can handle all of their in-game logic
 [x] Create basic Unity project for client
 [ ] Debug Mode for selecting levels
 [ ] System for exporting all static level objects from Unity and loading them into the Server
